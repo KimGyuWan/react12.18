@@ -1,31 +1,35 @@
 
 import { useState } from 'react';
-import db from './data/gnb.json';
+import navijson from './data/gnb.json';
+
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
-  const [taBvar, setTabVar] = useState("");
+  const [taBvar, setTabVar] = useState(0);
 
   return (
     <div>
       <ul className="">
         {
-          db.map((el, idx) => {
+          navijson.map((el, idx) => {
             return (
               <>
                 <li onClick={() => { setTabVar(idx) }}>
                   {el.nm}
                 </li>
-                {
-                  taBvar === idx && <div>
-                    <img src={el.src} alt={el.alt} />{el.nm}
-                  </div>
-                }
               </>
             )
           })
         }
       </ul>
-
+      <div className='border py-5 bg-dark text-white'>
+        {
+          navijson[taBvar] && <p>
+            <img src={navijson[taBvar].src} alt={navijson[taBvar].alt} />
+            <strong>{navijson[taBvar].nm}</strong>
+          </p>
+        }
+      </div>
     </div>
   );
 }
